@@ -1,3 +1,4 @@
+<%@ page import="java.sql.ResultSet" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" session="true" %>
 <% if(session.getAttribute("username") == null) response.sendRedirect("/login.jsp"); %>
 <!DOCTYPE html>
@@ -46,7 +47,21 @@
               </div><!-- /.navbar-collapse -->
           </div><!-- /.container-fluid -->
       </nav>
+      <table class="table table-striped">
+          <thead>
+          <th>Student no.</th>
+          <th>First Name</th>
+          <th>Midlle Name</th>
+          <th>Last Name</th>
+          <th>Image</th>
+          <th>Action</th>
+          </thead>
+          <tbody>
+          ${studentsData}
+          </tbody>
+      </table>
   </div>
+
 
   <script src="plugins/js/jquery.min.js"></script>
   <script src="plugins/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
