@@ -31,11 +31,31 @@
 
     <servlet>
         <servlet-name>view</servlet-name>
-        <servlet-class>com.webapp.servlets.view</servlet-class>
+        <servlet-class>com.webapp.servlets. view</servlet-class>
     </servlet>
 
     <servlet-mapping>
         <servlet-name>view</servlet-name>
         <url-pattern>/view</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>update</servlet-name>
+        <servlet-class>com.webapp.servlets.update</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>update</servlet-name>
+        <url-pattern>/update</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>search</servlet-name>
+        <servlet-class>com.webapp.servlets.search</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>search</servlet-name>
+        <url-pattern>/search</url-pattern>
     </servlet-mapping>
 </web-app>

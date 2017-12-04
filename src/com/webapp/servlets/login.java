@@ -22,9 +22,11 @@ import com.webapp.models.Users;
 public class login extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Users user = new Users();
+
         if(user.authentication(request.getParameter("username"), request.getParameter("password"))) {
             HttpSession session = request.getSession();
             session.setAttribute("username", request.getParameter("username"));
+
             request.setAttribute("username", request.getParameter("username"));
 
             Students students = new Students();
@@ -46,7 +48,9 @@ public class login extends HttpServlet {
                                     "<i class=\"fa fa-eye\" aria-hidden=\"true\"></i>" +
                                     "</a>" +
                                     "&nbsp;" +
+                                    "<a href=\"update?id=" + rs.getString("id") + "\">" +
                                     "<i class=\"fa fa-pencil\" aria-hidden=\"true\"></i>" +
+                                    "</a>" +
                                     "&nbsp;" +
                                     "<i class=\"fa fa-trash-o\" aria-hidden=\"true\"></i>" +
                                     "</td>" +
@@ -74,22 +78,45 @@ public class login extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        PrintWriter out = response.getWriter();
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/webapp","root", "");
-            Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM user");
-            while(rs.next()) {
-                out.println(rs.getString("password"));
-                out.println(rs.getString("username"));
-                out.println(rs.getString(3));
+        Users user = new Users();
+            HttpSession session = request.getSession();
+            session.setAttribute("username", request.getParameter("username"));
+            request.setAttribute("username", request.getParameter("username"));
+
+            Students students = new Students();
+            ResultSet rs = students.GetData();
+
+            String studentsData = "";
+            try {
+                while (rs.next()) {
+                    studentsData +=
+                            "<tr>" +
+                                    "<td>" + rs.getString("student_no") + "</td>" +
+                                    "<td>" + rs.getString("first_name") + "</td>" +
+                                    "<td>" + rs.getString("middle_name") + "</td>" +
+                                    "<td>" + rs.getString("last_name") + "</td>" +
+                                    "<td><img class=\"profile-img\" " +
+                                    "src=\"assets/images/" + rs.getString("image") + "\">" + "</td>" +
+                                    "<td>" +
+                                    "<a href=\"view?id=" + rs.getString("id") + "\">" +
+                                    "<i class=\"fa fa-eye\" aria-hidden=\"true\"></i>" +
+                                    "</a>" +
+                                    "&nbsp;" +
+                                    "<a href=\"update?id=" + rs.getString("id") + "\">" +
+                                    "<i class=\"fa fa-pencil\" aria-hidden=\"true\"></i>" +
+                                    "</a>" +
+                                    "&nbsp;" +
+                                    "<i class=\"fa fa-trash-o\" aria-hidden=\"true\"></i>" +
+                                    "</td>" +
+                                    "</tr>";
+
+
+                }
+            } catch (Exception e) {
             }
-            st.close();
-            rs.close();
-            conn.close();
-        } catch (Exception e) {
-            out.print(e);
-        }
+            students.Close();
+            request.setAttribute("studentsData", studentsData);
+            request.getRequestDispatcher("/index.jsp").forward(request, response);
+
     }
 }

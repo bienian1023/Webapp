@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="plugins/bootstrap-3.3.7-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="plugins/bootstrap-3.3.7-dist/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="plugins/font-awesome-4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="assets/css/style.css">
+        <link rel="stylesheet" href="assets/css/style.css">
   </head>
   <body>
 
@@ -47,21 +47,26 @@
               </div><!-- /.navbar-collapse -->
           </div><!-- /.container-fluid -->
       </nav>
-      <table class="table table-striped">
-          <thead>
-          <th>Student no.</th>
-          <th>First Name</th>
-          <th>Midlle Name</th>
-          <th>Last Name</th>
-          <th>Image</th>
-          <th>Action</th>
-          </thead>
-          <tbody>
-          ${studentsData}
-          </tbody>
-      </table>
+      <form action="/search" method="post">
+          <input type="text" name="search" class="form-control" placeholder="Serach for...">
+          <span class="input-group-btn">
+              <input type="submit">
+          </span>
+      </form>
+      <table class="table table-stripe">
+      <thead>
+      <th>Student no.</th>
+      <th>First Name</th>
+      <th>Middle Name</th>
+      <th>Last Name</th>
+      <th>Image</th>
+      <th>Action</th>
+      </thead>
+      <tbody>
+      ${studentsData}
+      </tbody>
+  </table>
   </div>
-
 
   <script src="plugins/js/jquery.min.js"></script>
   <script src="plugins/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
